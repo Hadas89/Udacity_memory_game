@@ -1,9 +1,11 @@
 
- // Create a list that holds all of your cards
+
  var icons = ["fa fa-diamond", "fa fa-diamond","fa fa-paper-plane-o", 
  "fa fa-paper-plane-o","fa fa-anchor","fa fa-anchor", "fa fa-bolt","fa fa-bolt","fa fa-cube","fa fa-cube", "fa fa-leaf","fa fa-leaf",
  "fa fa-bicycle","fa fa-bicycle","fa fa-bomb","fa fa-bomb"]
-
+var open = []
+var match = []
+var moves = 0
 
 function createBoard () {
 
@@ -20,14 +22,17 @@ createBoard()
 
 
 var resetGame = function () {
+	moves = 0
+	document.getElementsByClassName('moves')[0].innerHTML = moves + " moves"
 	var cards = document.querySelectorAll('.card')
 	for (var i = 0; i < icons.length; i++) {
+
 		//we removed 2 inner childs of deck, one wasn't enough
 		cards[i].innerHTML = " "
 		document.getElementsByClassName('deck')[0].removeChild(cards[i])
 	}
 	
-
+		
 	createBoard()
 
 }
@@ -52,9 +57,7 @@ function shuffle(array) {
     return array;
 }
 
-var open = []
-var match = []
-var points = 0	
+
 
 function flipCard () {
 this.classList.add('show')
@@ -69,11 +72,11 @@ if (open.length == 2) {
 
 function checkForMatch () {
 	
+	
 	setTimeout(function () {
 	
 	if (open[0].innerHTML === open[1].innerHTML) {
-	points +=5
-	document.getElementsByClassName('points')[0].innerHTML = points + " points"
+	
 	console.log('its a match')
 	match.push(open[0])
 	match.push(open[1])
@@ -90,8 +93,8 @@ function checkForMatch () {
 	open.pop()
 	open.pop()
 	 } else {
-	 	points -=1
-	 	document.getElementsByClassName('points')[0].innerHTML = points + " points"
+	 	moves +=1
+	 	document.getElementsByClassName('moves')[0].innerHTML = moves + " moves"
 	 	
 	 	open[0].classList.remove('show')
 		open[1].classList.remove('show')
